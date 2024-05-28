@@ -12,13 +12,13 @@ body {
 }
 
 .container {
-    background: url("../resources/image/login.jpg");
+    background: url("../image/register.png");
     background-size: cover;
     width: 100%;
     height: 100%;
 }
 
-.login-wrapper {
+.register-wrapper {
     background-color: rgba(255, 255, 255, 0.4);
     box-shadow: 0 5px 15px rgba(20, 20, 20, 0.8);
     width: 358px;
@@ -54,17 +54,17 @@ body {
     text-transform: uppercase;
 }
 
-.loginButton {
+.btn {
     text-align: center;
     padding: 10px;
     width: 105%;
     margin-top: 40px;
-    background-image: linear-gradient(to right, #a6c1ee, #fbc2eb);
+    background-image: linear-gradient(to right, #a6c1ee, rgb(57, 99, 145));
     color: #fff;
 }
 
-.loginButton:hover {
-    background-image: linear-gradient(to left, #a6c1ee, #fbc2eb);
+.btn:hover {
+    background-image: linear-gradient(to left, #a6c1ee, rgb(57, 99, 145));
 ;
 }
 
@@ -75,5 +75,5 @@ body {
 
 a {
     text-decoration-line: none;
-    color: #8387cd;
+    color: #3c5892;
 }

@@ -9,9 +9,8 @@
 <head>
   <meta charset="UTF-8">
   <title>登录</title>
-  <link rel="stylesheet" href="../resources/CSS/UserLogin.css">
+  <link rel="stylesheet" href="CSS/UserLogin.css" type="text/css">
 </head>
-
 <body>
 <div class="container">
   <div class="login-wrapper">

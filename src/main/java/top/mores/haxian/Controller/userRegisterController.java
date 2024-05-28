@@ -9,7 +9,7 @@ public class userRegisterController {
     public void GetUserRegisterData(String registerUsername,
                                     String registerPhoneNumber,
                                     String registerPassword){
-
+        System.out.println(registerUsername+":"+registerPassword+":"+registerPhoneNumber);
 
     }
 }
