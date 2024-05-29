@@ -9,14 +9,14 @@
 <head>
   <meta charset="UTF-8">
   <title>登录</title>
-  <link rel="stylesheet" href="CSS/UserLogin.css" type="text/css">
+  <link rel="stylesheet" href="./CSS/UserLogin.css" type="text/css">
 </head>
 <body>
 <div class="container">
   <div class="login-wrapper">
     <div class="header">登录</div>
     <div class="form-wrapper">
-      <form action="/UserLogin3" method="post">
+      <form action="${pageContext.request.contextPath}/getUserPassword" method="post">
         <input type="text" name="userName" id="userName" placeholder="账号" class="input-item">
         <input type="password" name="userPassword" id="userPassword" placeholder="密码" class="input-item">
         <button class="loginButton" id="loginButton" type="submit">登录</button>

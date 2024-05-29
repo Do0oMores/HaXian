@@ -9,9 +9,8 @@
 <head>
   <meta charset="UTF-8">
   <title>注册</title>
-  <link rel="stylesheet" href="/CSS/UserRegister.css" type="text/css">
+  <link rel="stylesheet" href="./CSS/UserRegister.css" type="text/css">
 </head>
-
 <body>
 <div class="container">
   <div class="register-wrapper">
@@ -30,5 +29,8 @@
     </div>
   </div>
 </div>
+<%
+
+%>
 </body>
 </html>
