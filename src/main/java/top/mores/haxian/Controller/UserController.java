@@ -2,6 +2,7 @@ package top.mores.haxian.Controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,11 @@ public class UserController {
     public List<Map<String,Object>> getAllUsers(){
         String sql="select * from users";
         List<Map<String,Object>> list=jdbcTemplate.queryForList(sql);
+        try {
+            jdbcTemplate.execute("insert into users (id, name, pwd, phonenumber) values (2, '李四', '3344', 13300000000)");
+        } catch (DataAccessException exception) {
+            throw new RuntimeException("数据库报错");
+        }
         return list;
     }
 
@@ -46,14 +52,12 @@ public class UserController {
         try {
             String password = jdbcTemplate.queryForObject(sql, new Object[]{username}, String.class);
             if (userPassword.equals(password)) {
-                response.sendRedirect("src/main/webapp/WEB-INF/views/HaXianMain.jsp");
+                response.sendRedirect("http://localhost:8080/HaXianMain.jsp");
             } else {
-                response.sendRedirect("src/main/webapp/UserLoginFailed.jsp");
+                response.sendRedirect("http://localhost:8080/UserLoginFailed.jsp");
             }
         } catch (EmptyResultDataAccessException e) {
-            response.sendRedirect("src/main/webapp/UserLoginFailed.jsp");
+            response.sendRedirect("http://localhost:8080/UserLoginFailed.jsp");
         }
     }
-
-
 }
