@@ -1,6 +1,5 @@
 package top.mores.haxian.Controller;
 
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -36,11 +34,6 @@ public class UserController {
     public List<Map<String,Object>> getAllUsers(){
         String sql="select * from users";
         List<Map<String,Object>> list=jdbcTemplate.queryForList(sql);
-//        try {
-//            jdbcTemplate.execute("insert into users (id, name, pwd, phonenumber) values (2, '李四', '3344', 13300000000)");
-//        } catch (DataAccessException exception) {
-//            throw new RuntimeException("数据库报错");
-//        }
         return list;
     }
 
@@ -50,10 +43,17 @@ public class UserController {
     public void getUserPassword(@RequestParam("userName") String userName,
                                 @RequestParam("userPassword") String userPassword){
         String sql = "select pwd from users where name = ?";
+        String sql1="select is_admin from users where name = ?";
         try {
             String password = jdbcTemplate.queryForObject(sql, new Object[]{userName}, String.class);
+            int isAdmin=jdbcTemplate.queryForObject(sql1,new Object[]{userName},int.class);
             if (userPassword.equals(password)) {
-                System.out.println(userName);
+                System.out.println("登录成功");
+                if (isAdmin==1){
+                    System.out.println("进入管理界面");
+                }else {
+                    System.out.println("进入用户界面");
+                }
             } else {
                 System.out.println(userPassword);
             }
