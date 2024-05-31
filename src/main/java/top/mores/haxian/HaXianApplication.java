@@ -13,7 +13,7 @@ public class HaXianApplication extends SpringBootServletInitializer {
     }
 
     @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder applicationBuilder){
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder applicationBuilder) {
         return applicationBuilder.sources(HaXianApplication.class);
     }
 

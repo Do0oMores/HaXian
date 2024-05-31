@@ -7,7 +7,7 @@ import top.mores.haxian.POJO.User;
 @Controller
 public class userLoginController {
     @RequestMapping("/main")
-    public void GetUserName(User user){
-        System.out.println(user.getUserName()+":"+user.getUserPassword());
+    public void GetUserName(User user) {
+        System.out.println(user.getUserName() + ":" + user.getUserPassword());
     }
 }
