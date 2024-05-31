@@ -1,5 +1,6 @@
 package top.mores.haxian.Controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import top.mores.haxian.POJO.User;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +34,8 @@ public class UserController {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    public static final String USER_LOGIN_STATE="userLoginState";
+
     @RequestMapping(value = "/getAllUsers", method = RequestMethod.GET)
     @ResponseBody
     public List<Map<String, Object>> getAllUsers() {
@@ -49,7 +53,8 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Map<String, Object>> getUserPassword(@RequestParam("userName") String userName,
-                                                               @RequestParam("userPassword") String userPassword) {
+                                                               @RequestParam("userPassword") String userPassword,
+                                                               HttpSession session) {
         String sql = "select pwd from users where name = ?";
         String sql1 = "select is_admin from users where name = ?";
         Map<String, Object> response = new HashMap<>();
@@ -60,6 +65,11 @@ public class UserController {
             if (userPassword.equals(password)) {
                 response.put("code", 200);
                 response.put("msg", "登录成功");
+                //创建User对象
+                User user=new User();
+                user.setUserName(userName);
+                user.setUserPassword(userPassword);
+                session.setAttribute(USER_LOGIN_STATE,user);
                 //判断用户是否为管理
                 if (isAdmin == 1) {
                     response.put("role", "admin");
