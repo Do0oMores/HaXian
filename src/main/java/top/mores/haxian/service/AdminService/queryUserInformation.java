@@ -34,7 +34,7 @@ public class queryUserInformation {
             response.put("Data", data);
         } catch (EmptyResultDataAccessException e) {
             response.put("code", 404);
-            response.put("msg", "该用户不存在");
+            response.put("msg", "用户"+username+"不存在");
         } catch (Exception e) {
             response.put("code", 500);
             response.put("msg", "服务器内部错误");
