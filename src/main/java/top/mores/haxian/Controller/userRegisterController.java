@@ -5,10 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +18,7 @@ public class userRegisterController {
     JdbcTemplate jdbcTemplate;
 
     //注册返回后端信息
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @GetMapping("/register")
     @ResponseBody
     public ResponseEntity<Map<String,Object>> GetUserRegisterData(@RequestParam("username") String registerUsername,
                                                    @RequestParam("phone") String registerPhoneNumber,

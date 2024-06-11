@@ -5,6 +5,8 @@ public class User {
     private String userName;
     private String userPassword;
     private String userPhoneNumber;
+    private Integer is_admin;
+    private String register_date;
 
     @Override
     public String toString() {
@@ -14,6 +16,22 @@ public class User {
                 ", userPassword='" + userPassword + '\'' +
                 ", userPhoneNumber='" + userPhoneNumber + '\'' +
                 '}';
+    }
+
+    public Integer getIs_admin() {
+        return is_admin;
+    }
+
+    public void setIs_admin(Integer is_admin) {
+        this.is_admin = is_admin;
+    }
+
+    public String getRegister_date() {
+        return register_date;
+    }
+
+    public void setRegister_date(String register_date) {
+        this.register_date = register_date;
     }
 
     public Integer getUserID() {
@@ -44,7 +62,7 @@ public class User {
         return userPhoneNumber;
     }
 
-    public void setUserPhoneNumber(String userPhoneNumber) {
+    public void setUserPhoneNumber(String userPhoneNumber)  {
         this.userPhoneNumber = userPhoneNumber;
     }
 }
