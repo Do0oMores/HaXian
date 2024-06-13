@@ -33,10 +33,6 @@ public class queryUserOrders {
             try {
                 // 查询orders表
                 List<Map<String, Object>> orders = jdbcTemplate.queryForList(sql);
-                if (orders.isEmpty()) {
-                    response.put("code", 404);
-                    response.put("msg", "没有查到消费记录");
-                } else {
                     for (Map<String, Object> order : orders) {
                         // 从users表获取userName
                         String userId = order.get("user_id").toString();
@@ -51,12 +47,10 @@ public class queryUserOrders {
                     response.put("code", 200);
                     response.put("msg", "查询成功");
                     response.put("Data", orders);
-                }
             } catch (EmptyResultDataAccessException e) {
                 response.put("code", 404);
                 response.put("msg", "没有查到消费记录");
             } catch (Exception e) {
-                //e.printStackTrace();
                 response.put("code", 500);
                 response.put("msg", "服务器错误");
             }

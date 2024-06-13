@@ -1,4 +1,4 @@
-package top.mores.haxian.service.AdminService;
+package top.mores.haxian.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,46 +11,52 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import top.mores.haxian.Utils.LoginCheck;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
-public class queryProductsInformation {
-
+public class commoditiesMain {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
     LoginCheck loginCheck = new LoginCheck();
 
-    @GetMapping("/products")
-    public ResponseEntity<Map<String, Object>> productsInformation(@RequestParam("productName") String productName,
-                                                                   HttpSession session) {
+    //加载商品信息
+    @GetMapping("/commodity")
+    public ResponseEntity<Map<String, Object>> showCommodity(HttpSession session) {
         Map<String, Object> response = new HashMap<>();
         if (loginCheck.onLoginCheck(session)) {
-            String sql =
-                    "select product_id,name,description,price,stock,origin,production_date,support,create_time,shelf_life,type from products where name =?";
-
+            String sql = "select * from products";
             try {
-                Map<String, Object> products = jdbcTemplate.queryForMap(sql, productName);
-                response.put("code", 200);
-                response.put("msg", "查询成功");
-                List<Map<String, Object>> data = new ArrayList<>();
-                data.add(products);
-                response.put("Data", data);
+                List<Map<String, Object>> commodities = jdbcTemplate.queryForList(sql);
+                response.put("code",200);
+                response.put("Data",commodities);
             } catch (EmptyResultDataAccessException e) {
                 response.put("code", 404);
-                response.put("msg", "没有名为" + productName + "的商品");
+                response.put("msg", "没有商品信息");
             } catch (Exception e) {
                 response.put("code", 500);
                 response.put("msg", "服务器错误");
             }
         } else {
             response.put("code", 404);
-            response.put("msg", "您还未登录！");
+            response.put("msg", "您还未登录");
         }
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
+    //加入购物车
+    @GetMapping("/addToCard")
+    public ResponseEntity<Map<String,Object>> addToCard(HttpSession session,
+                                                        @RequestParam("productId") String productId){
+        Map<String,Object> response=new HashMap<>();
+        if (loginCheck.onLoginCheck(session)){
+
+        }else {
+            response.put("code", 404);
+            response.put("msg", "您还未登录");
+        }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

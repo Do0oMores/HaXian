@@ -32,10 +32,6 @@ public class queryReservation {
 
             try {
                 List<Map<String, Object>> reservations = jdbcTemplate.queryForList(sql);
-                if (reservations.isEmpty()) {
-                    response.put("code", 404);
-                    response.put("msg", "没有查询到预约信息");
-                } else {
                     for (Map<String, Object> reservation : reservations) {
                         String userId = reservation.get("userId").toString();
                         String userName = jdbcTemplate.queryForObject(sql1, new Object[]{userId}, String.class);
@@ -47,12 +43,10 @@ public class queryReservation {
                     response.put("code", 200);
                     response.put("msg", "查询成功");
                     response.put("Data", reservations);
-                }
             } catch (EmptyResultDataAccessException e) {
                 response.put("code", 404);
                 response.put("msg", "没有查询到预约信息");
             } catch (Exception e) {
-                //e.printStackTrace();
                 response.put("code", 500);
                 response.put("msg", "服务器内部错误");
             }

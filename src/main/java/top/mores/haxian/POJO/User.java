@@ -5,7 +5,7 @@ public class User {
     private String userName;
     private String userPassword;
     private String userPhoneNumber;
-    private Integer is_admin;
+    private boolean isAdmin;
     private String register_date;
 
     @Override
@@ -18,12 +18,12 @@ public class User {
                 '}';
     }
 
-    public Integer getIs_admin() {
-        return is_admin;
+    public boolean isAdmin() {
+        return isAdmin;
     }
 
-    public void setIs_admin(Integer is_admin) {
-        this.is_admin = is_admin;
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public String getRegister_date() {
