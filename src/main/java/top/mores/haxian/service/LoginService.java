@@ -19,9 +19,11 @@ public class LoginService {
         try {
             String password = userLoginDao.getPasswordByUserName(userName);
             int isAdmin = userLoginDao.getUserRole(userName);
+            Integer userID=userLoginDao.getUserID(userName);
             if (userPassword.equals(password)) {
                 response.put("code", 200);
                 response.put("msg", "登录成功");
+                response.put("userID",userID);
                 response.put("role", isAdmin == 1 ? "admin" : "user");
             } else {
                 response.put("code", 401);

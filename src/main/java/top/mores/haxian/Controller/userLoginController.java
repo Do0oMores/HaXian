@@ -21,20 +21,20 @@ public class userLoginController {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public static final String USER_LOGIN_STATE="userLoginState";
+    public static final String USER_LOGIN_STATE = "userLoginState";
 
     @RestController
     @RequestMapping("/login")
-    public class UserController {
+    public static class UserController {
 
         @Autowired
-        private LoginService userService;
+        private LoginService loginService;
 
         @GetMapping
         public ResponseEntity<Map<String, Object>> getUserPassword(@RequestParam("userName") String userName,
                                                                    @RequestParam("userPassword") String userPassword,
                                                                    HttpSession session) {
-            Map<String, Object> response = userService.authenticateUser(userName, userPassword);
+            Map<String, Object> response = loginService.authenticateUser(userName, userPassword);
             if ((int) response.get("code") == 200) {
                 User user = new User();
                 user.setUserName(userName);

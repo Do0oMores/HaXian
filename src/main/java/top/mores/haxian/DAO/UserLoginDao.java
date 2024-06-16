@@ -18,4 +18,9 @@ public class UserLoginDao {
         String sql = "select is_admin from users where name = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{userName}, int.class);
     }
+
+    public Integer getUserID(String userName) {
+        String sql = "select id from users where name = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{userName}, int.class);
+    }
 }

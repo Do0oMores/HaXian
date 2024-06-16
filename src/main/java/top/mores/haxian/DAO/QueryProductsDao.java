@@ -15,7 +15,8 @@ public class QueryProductsDao {
 
     public Map<String, Object> findProductByName(String productName) {
         String sql =
-                "select product_id,name,description,price,stock,origin,production_date,support,create_time,shelf_life,type from products where name = ?";
+                "select product_id,name,description,price,stock,origin,production_date,support,create_time,shelf_life,type " +
+                        "from products where name = ?";
         try {
             return jdbcTemplate.queryForMap(sql, productName);
         } catch (EmptyResultDataAccessException e) {
