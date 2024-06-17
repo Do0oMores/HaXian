@@ -8,6 +8,7 @@ import top.mores.haxian.POJO.ShoppingCartResponse;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,7 +39,7 @@ public class ShoppingCartService {
                         return null;
                     }
                 })
-                .filter(item -> item != null)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
         double totalCartPrice = items.stream()

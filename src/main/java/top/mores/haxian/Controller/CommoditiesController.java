@@ -54,7 +54,7 @@ public class CommoditiesController {
                 boolean success = commoditiesService.addToCart(userId, productId, quantity);
                 if (success) {
                     response.put("code", 200);
-                    response.put("msg", "添加到购物车成功，库存已更新");
+                    response.put("msg", "已添加到购物车");
                 } else {
                     response.put("code", 400);
                     response.put("msg", "添加到购物车失败，库存不足");
