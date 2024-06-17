@@ -5,12 +5,22 @@ public class ShoppingCart {
     private int quantity;
     private double unitPrice;
     private double totalPrice;
+    private Integer productID;
 
-    public ShoppingCart(String productName, int quantity, double unitPrice, double totalPrice) {
+    public ShoppingCart(String productName, int quantity, double unitPrice, double totalPrice, Integer productID) {
         this.productName = productName;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
         this.totalPrice = totalPrice;
+        this.productID = productID;
+    }
+
+    public Integer getProductID() {
+        return productID;
+    }
+
+    public void setProductID(Integer productID) {
+        this.productID = productID;
     }
 
     public String getProductName() {

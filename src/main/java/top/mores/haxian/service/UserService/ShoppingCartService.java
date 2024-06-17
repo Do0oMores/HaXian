@@ -6,6 +6,8 @@ import top.mores.haxian.DAO.UserShoppingCartDao;
 import top.mores.haxian.POJO.ShoppingCart;
 import top.mores.haxian.POJO.ShoppingCartResponse;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -32,9 +34,9 @@ public class ShoppingCartService {
                     if (!productInfo.isEmpty()) {
                         Map<String, Object> product = productInfo.get(0);
                         String productName = (String) product.get("name");
-                        double unitPrice = (Double) product.get("price");
-                        double totalPrice = unitPrice * quantity;
-                        return new ShoppingCart(productName, quantity, unitPrice, totalPrice);
+                        BigDecimal unitPrice = BigDecimal.valueOf((Double) product.get("price")).setScale(2, RoundingMode.HALF_UP);
+                        BigDecimal totalPrice = unitPrice.multiply(BigDecimal.valueOf(quantity)).setScale(2, RoundingMode.HALF_UP);
+                        return new ShoppingCart(productName, quantity, unitPrice.doubleValue(), totalPrice.doubleValue(), productID);
                     } else {
                         return null;
                     }
@@ -42,10 +44,12 @@ public class ShoppingCartService {
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
-        double totalCartPrice = items.stream()
-                .mapToDouble(ShoppingCart::getTotalPrice)
-                .sum();
+        BigDecimal totalCartPrice = items.stream()
+                .map(ShoppingCart::getTotalPrice)
+                .map(BigDecimal::valueOf)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .setScale(2, RoundingMode.HALF_UP);
 
-        return new ShoppingCartResponse(items, totalCartPrice);
+        return new ShoppingCartResponse(items, totalCartPrice.doubleValue());
     }
 }

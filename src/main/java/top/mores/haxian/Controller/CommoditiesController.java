@@ -45,7 +45,7 @@ public class CommoditiesController {
 
     @GetMapping("/add-to-cart")
     public ResponseEntity<Map<String, Object>> addToCart(@RequestParam("userId") Integer userId,
-                                                         @RequestParam("productID") Integer productId,
+                                                         @RequestParam("productId") Integer productId,
                                                          @RequestParam("quantity") int quantity,
                                                          HttpSession session) {
         Map<String, Object> response = new HashMap<>();
