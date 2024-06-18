@@ -8,9 +8,7 @@ import top.mores.haxian.POJO.ShoppingCartResponse;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,5 +49,56 @@ public class ShoppingCartService {
                 .setScale(2, RoundingMode.HALF_UP);
 
         return new ShoppingCartResponse(items, totalCartPrice.doubleValue());
+    }
+
+    public Map<String, Object> createOrder(Integer user_id) {
+        Map<String, Object> order = new HashMap<>();
+        List<Map<String, Object>> shopping = userShoppingCartDao.queryUserShoppingCart(user_id);
+        if (!shopping.isEmpty()) {
+            for (Map<String, Object> item : shopping) {
+                Integer product_id = (Integer) item.get("product_id");
+                Integer amount = (Integer) item.get("amount");
+                Map<String, Object> productInformation = userShoppingCartDao.queryProductInformation(product_id).get(0);
+                BigDecimal unitPrice = BigDecimal.valueOf((Double) productInformation.get("price")).setScale(2, RoundingMode.HALF_UP);
+                BigDecimal totalPrice = unitPrice.multiply(BigDecimal.valueOf(amount)).setScale(2, RoundingMode.HALF_UP);
+                String status = "等待结账";
+                userShoppingCartDao.insertOrder(user_id, product_id, status, totalPrice.doubleValue(), amount);
+            }
+            order.put("code", 200);
+            order.put("msg", "订单创建成功");
+        } else return null;
+        return order;
+    }
+
+    public int changeStatus(String status, Integer userID) {
+        return userShoppingCartDao.changeOrderStatus(status, userID);
+    }
+
+    public int cleanUserShop(Integer userID) {
+        return userShoppingCartDao.cleanUserShoppingCart(userID);
+    }
+
+    public List<Map<String, Object>> queryOrders(Integer userID) {
+        List<Map<String, Object>> orders = new ArrayList<>();
+        List<Map<String, Object>> data = userShoppingCartDao.queryOrdersForUser(userID);
+        for (Map<String, Object> item : data) {
+            Integer productID = (Integer) item.get("product_id");
+            List<Map<String, Object>> productInformation = userShoppingCartDao.queryProductInformation(productID);
+
+            if (productInformation != null && !productInformation.isEmpty()) {
+                Map<String, Object> information = productInformation.get(0);
+                item.put("product_name", information.get("name"));
+                item.put("price", information.get("price"));
+            } else {
+                item.put("product_name", "Unknown Product");
+                item.put("price", 0);
+            }
+            orders.add(item);
+        }
+        return orders;
+    }
+
+    public int cleanOrder(Integer userID){
+        return userShoppingCartDao.cleanOrder(userID);
     }
 }
