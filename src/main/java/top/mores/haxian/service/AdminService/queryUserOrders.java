@@ -22,7 +22,7 @@ public class queryUserOrders {
 
             String productId = order.get("product_id").toString();
             String productName = orderDAO.getProductNameById(productId);
-            order.put("product_name", productName != null ? productName : "Unknown Product");
+            order.put("product_id", productName != null ? productName : "Unknown Product");
         }
         return orders;
     }
