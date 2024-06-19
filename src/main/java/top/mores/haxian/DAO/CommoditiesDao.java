@@ -49,7 +49,8 @@ public class CommoditiesDao {
     }
 
     public int addReservation(Integer userID,Integer productID,Integer amount){
-        String sql="insert into reservations(userId,productId,amount) values (?,?,?)";
-        return jdbcTemplate.update(sql,userID,productID,amount);
+        String text="已预约";
+        String sql="insert into reservations(userId,productId,amount,status) values (?,?,?,?)";
+        return jdbcTemplate.update(sql,userID,productID,amount,text);
     }
 }
