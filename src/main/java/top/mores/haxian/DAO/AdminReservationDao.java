@@ -35,4 +35,9 @@ public class AdminReservationDao {
             return null;
         }
     }
+
+    public int updateReservationStatus(Integer reservationID,String status){
+        String sql="update reservations set status=? where reservation_id=?";
+        return jdbcTemplate.update(sql,status,reservationID);
+    }
 }

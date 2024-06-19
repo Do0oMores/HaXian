@@ -26,4 +26,9 @@ public class ReservationService {
         }
         return reservations;
     }
+
+    public int updateReservation(String reservationID,String status){
+        Integer reservation_id= Integer.valueOf(reservationID);
+        return reservationDAO.updateReservationStatus(reservation_id,status);
+    }
 }
