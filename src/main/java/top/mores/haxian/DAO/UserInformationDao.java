@@ -5,6 +5,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Repository
@@ -21,7 +22,7 @@ public class UserInformationDao {
         }
     }
 
-    public int saveUser(Integer userID,String name,String phone,Integer isAdmin,String registerDate){
+    public int saveUser(Integer userID, String name, String phone, Integer isAdmin, LocalDateTime registerDate){
         String sql="update users set name=?,phone=?,is_admin=?,register_date=? where id=?";
             return jdbcTemplate.update(sql,name,phone,isAdmin,registerDate,userID);
     }

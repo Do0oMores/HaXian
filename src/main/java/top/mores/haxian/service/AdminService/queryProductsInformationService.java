@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.mores.haxian.DAO.QueryProductsDao;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Map;
 
 @Service
@@ -27,6 +30,12 @@ public class queryProductsInformationService {
                                       String createTime,
                                       Integer shelfLife,
                                       String type){
-        return productDAO.saveProduct(productID,productName,description,price,stock,origin,productionDate,support,createTime,shelfLife,type);
+        LocalDateTime localDateTime;
+        try {
+            localDateTime = LocalDateTime.parse(createTime, DateTimeFormatter.ISO_DATE_TIME);
+        } catch (DateTimeParseException e) {
+            return 0;
+        }
+        return productDAO.saveProduct(productID,productName,description,price,stock,origin,productionDate,support,localDateTime,shelfLife,type);
     }
 }

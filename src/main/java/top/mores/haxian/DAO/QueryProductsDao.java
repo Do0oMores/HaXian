@@ -5,6 +5,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Repository
@@ -32,7 +33,7 @@ public class QueryProductsDao {
                            String origin,
                            String productionDate,
                            String support,
-                           String createTime,
+                           LocalDateTime createTime,
                            Integer shelfLife,
                            String type){
         String sql="update products set name=?,description=?,price=?,stock=?,origin=?,production_date=?,support=?,create_time=?,shelf_life=?,type=? where product_id=?";

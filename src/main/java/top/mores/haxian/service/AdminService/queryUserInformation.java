@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.mores.haxian.DAO.UserInformationDao;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Map;
 import java.util.Objects;
 
@@ -23,13 +26,19 @@ public class queryUserInformation {
 
     public int saveUserInformation(String userID,String name,String phone,String isAdmin,String register_date){
         Integer UserID= Integer.valueOf(userID);
+        LocalDateTime localDateTime;
+        try {
+            localDateTime = LocalDateTime.parse(register_date, DateTimeFormatter.ISO_DATE_TIME);
+        } catch (DateTimeParseException e) {
+            return 0;
+        }
         int is_admin;
         if (Objects.equals(isAdmin, "是")){
             is_admin=1;
         }else {
             is_admin=0;
         }
-        return userDAO.saveUser(UserID,name,phone,is_admin,register_date);
+        return userDAO.saveUser(UserID,name,phone,is_admin,localDateTime);
     }
 
 }
