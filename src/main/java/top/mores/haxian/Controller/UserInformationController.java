@@ -50,4 +50,22 @@ public class UserInformationController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/save-user")
+    public ResponseEntity<Map<String,Object>> saveUser(@RequestParam("userID")String userID,
+                                                       @RequestParam("name")String userName,
+                                                       @RequestParam("phone")String phone,
+                                                       @RequestParam("isAdmin")String isAdmin,
+                                                       @RequestParam("registerDate")String registerDate){
+        Map<String,Object> response=new HashMap<>();
+        int rows= userService.saveUserInformation(userID,userName,phone,isAdmin,registerDate);
+        if (rows>0){
+            response.put("code",200);
+            response.put("msg","保存成功");
+        }else {
+            response.put("code",500);
+            response.put("msg","保存失败");
+        }
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
 }
