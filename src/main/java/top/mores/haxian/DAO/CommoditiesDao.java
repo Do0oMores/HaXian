@@ -48,4 +48,8 @@ public class CommoditiesDao {
         jdbcTemplate.update(sql, quantity, productId);
     }
 
+    public int addReservation(Integer userID,Integer productID,Integer amount){
+        String sql="insert into reservations(userId,productId,amount) values (?,?,?)";
+        return jdbcTemplate.update(sql,userID,productID,amount);
+    }
 }

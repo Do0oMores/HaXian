@@ -42,4 +42,8 @@ public class CommoditiesService {
         commoditiesDao.restoreProductStock(productId, quantity);
         return result;
     }
+
+    public int addReservation(Integer userID, Integer productID, Integer amount) {
+        return commoditiesDao.addReservation(userID, productID, amount);
+    }
 }

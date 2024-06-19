@@ -19,7 +19,7 @@ import java.util.Map;
 public class CommoditiesController {
     @Autowired
     private CommoditiesService commoditiesService;
-    LoginCheck loginCheck=new LoginCheck();
+    LoginCheck loginCheck = new LoginCheck();
 
     @GetMapping("/commodity")
     public ResponseEntity<Map<String, Object>> showCommodity(HttpSession session) {
@@ -93,6 +93,22 @@ public class CommoditiesController {
         } else {
             response.put("code", 404);
             response.put("msg", "您还未登录");
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/add-reservation")
+    public ResponseEntity<Map<String, Object>> addReservation(@RequestParam("userID") Integer userID,
+                                                              @RequestParam("productID") Integer productID,
+                                                              @RequestParam("amount") Integer amount) {
+        Map<String, Object> response = new HashMap<>();
+        int rows = commoditiesService.addReservation(userID, productID, amount);
+        if (rows > 0) {
+            response.put("code", 200);
+            response.put("msg", "已加入预约");
+        } else {
+            response.put("code", 500);
+            response.put("msg", "无法加入预约");
         }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
