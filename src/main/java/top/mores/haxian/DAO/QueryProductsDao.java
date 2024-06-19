@@ -23,4 +23,19 @@ public class QueryProductsDao {
             return null;
         }
     }
+
+    public int saveProduct(Integer productID,
+                           String productName,
+                           String description,
+                           double price,
+                           Integer stock,
+                           String origin,
+                           String productionDate,
+                           String support,
+                           String createTime,
+                           Integer shelfLife,
+                           String type){
+        String sql="update products set name=?,description=?,price=?,stock=?,origin=?,production_date=?,support=?,create_time=?,shelf_life=?,type=? where product_id=?";
+        return jdbcTemplate.update(sql,productName,description,price,stock,origin,productionDate,support,createTime,shelfLife,type,productID);
+    }
 }

@@ -15,4 +15,18 @@ public class queryProductsInformationService {
     public Map<String, Object> getProductByName(String productName) {
         return productDAO.findProductByName(productName);
     }
+
+    public int saveProductInformation(Integer productID,
+                                      String productName,
+                                      String description,
+                                      double price,
+                                      Integer stock,
+                                      String origin,
+                                      String productionDate,
+                                      String support,
+                                      String createTime,
+                                      Integer shelfLife,
+                                      String type){
+        return productDAO.saveProduct(productID,productName,description,price,stock,origin,productionDate,support,createTime,shelfLife,type);
+    }
 }
