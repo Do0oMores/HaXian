@@ -34,4 +34,27 @@ public class UserEditInformationController {
         }
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/edit-user")
+    public ResponseEntity<Map<String,Object>> saveUser(@RequestParam("userName")String userName,
+                                                       @RequestParam("userPhone")String phone,
+                                                       @RequestParam("userPwd")String pwd,
+                                                       @RequestParam("userID")Integer userID,
+                                                       HttpSession session){
+        Map<String,Object> response=new HashMap<>();
+        if (loginCheck.onLoginCheck(session)){
+            int rows=editInformationService.saveUserInformation(userID,userName,phone,pwd);
+            if (rows>0){
+                response.put("code",200);
+                response.put("msg","编辑已保存");
+            }else {
+                response.put("code",500);
+                response.put("msg","保存失败");
+            }
+        }else {
+            response.put("code",404);
+            response.put("msg","您还未登录");
+        }
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
 }

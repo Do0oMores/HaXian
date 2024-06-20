@@ -15,4 +15,8 @@ public class EditInformationService {
         return userEditInformationDao.getInformation(userID);
     }
 
+    public int saveUserInformation(Integer userID,String userName,String phone,String pwd){
+        return userEditInformationDao.editInformation(userID,userName,pwd,phone);
+    }
+
 }
