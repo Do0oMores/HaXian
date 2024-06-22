@@ -7,6 +7,7 @@ import top.mores.haxian.DAO.UserInformationDao;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -39,6 +40,14 @@ public class queryUserInformation {
             is_admin=0;
         }
         return userDAO.saveUser(UserID,name,phone,is_admin,localDateTime);
+    }
+
+    public List<Map<String,Object>> selectUsers(){
+        List<Map<String,Object>> data=userDAO.selectUsers();
+        for (Map<String,Object> item:data){
+            item.put("is_admin", (Integer) item.get("is_admin") == 1 ? "是" : "否");
+        }
+        return data;
     }
 
 }
