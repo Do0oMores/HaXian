@@ -7,6 +7,7 @@ import top.mores.haxian.DAO.QueryProductsDao;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -37,5 +38,9 @@ public class queryProductsInformationService {
             return 0;
         }
         return productDAO.saveProduct(productID,productName,description,price,stock,origin,productionDate,support,localDateTime,shelfLife,type);
+    }
+
+    public List<Map<String,Object>> selectCommodities(){
+        return productDAO.selectCommodities();
     }
 }

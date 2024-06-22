@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -38,5 +39,10 @@ public class QueryProductsDao {
                            String type){
         String sql="update products set name=?,description=?,price=?,stock=?,origin=?,production_date=?,support=?,create_time=?,shelf_life=?,type=? where product_id=?";
         return jdbcTemplate.update(sql,productName,description,price,stock,origin,productionDate,support,createTime,shelfLife,type,productID);
+    }
+
+    public List<Map<String,Object>> selectCommodities(){
+        String sql="select product_id,name,description,price,stock from products";
+        return jdbcTemplate.queryForList(sql);
     }
 }

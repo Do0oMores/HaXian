@@ -73,4 +73,18 @@ public class QueryProductsController {
         }
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
+
+    @GetMapping("/fetch-commodities")
+    public ResponseEntity<Map<String,Object>> fetchCommodities(HttpSession session){
+        Map<String,Object> response=new HashMap<>();
+        if (loginCheck.onLoginCheck(session)){
+            List<Map<String,Object>> data=productService.selectCommodities();
+            response.put("Data",data);
+            response.put("code",200);
+        }else {
+            response.put("code",404);
+            response.put("msg","您还未登录");
+        }
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
 }
