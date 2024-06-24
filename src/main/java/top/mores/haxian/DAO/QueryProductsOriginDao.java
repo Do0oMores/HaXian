@@ -13,21 +13,21 @@ public class QueryProductsOriginDao {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public List<Map<String,Object>> productOrigin(Integer productID){
-        if (productID==null){
+    public List<Map<String, Object>> productOrigin(Integer productID) {
+        if (productID == null) {
             return null;
-        }else {
-            String sql="select name,description,price,origin,production_date,support,create_time,shelf_life,type " +
-                    "from products where product_id=?";
-            return jdbcTemplate.queryForList(sql,productID);
+        } else {
+            String sql = "select name,description,price,origin,production_date,support,create_time,shelf_life,type " +
+                    "from products where product_id like ?";
+            return jdbcTemplate.queryForList(sql, "%" + productID + "%");
         }
     }
 
-    public Integer queryProductIDByProductName(String productName){
-        String sql="select product_id from products where name=?";
-        try{
-            return jdbcTemplate.queryForObject(sql,new  Object[]{productName},Integer.class);
-        }catch (EmptyResultDataAccessException e){
+    public Integer queryProductIDByProductName(String productName) {
+        String sql = "select product_id from products where name like ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{"%" + productName + "%"}, Integer.class);
+        } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }

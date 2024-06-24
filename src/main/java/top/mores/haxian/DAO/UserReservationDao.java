@@ -17,8 +17,8 @@ public class UserReservationDao {
         return jdbcTemplate.queryForList(sql, userID);
     }
 
-    public Map<String,Object> queryProductInformation(Integer productID){
-        String SQL="select name,price from products where product_id=?";
-        return jdbcTemplate.queryForMap(SQL,productID);
+    public Map<String, Object> queryProductInformation(Integer productID) {
+        String SQL = "select name,price from products where product_id=?";
+        return jdbcTemplate.queryForMap(SQL, productID);
     }
 }

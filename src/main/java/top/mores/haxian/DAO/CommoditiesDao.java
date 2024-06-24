@@ -17,7 +17,7 @@ public class CommoditiesDao {
         return jdbcTemplate.queryForList(sql);
     }
 
-    public void addCommodityToCart(Integer userId, Integer productId,int amount) {
+    public void addCommodityToCart(Integer userId, Integer productId, int amount) {
         String sql = "insert into shopping(user_id, product_id, amount) values (?, ?, ?) " +
                 "on duplicate key update amount = amount + ?";
         jdbcTemplate.update(sql, userId, productId, amount, amount);
@@ -48,9 +48,9 @@ public class CommoditiesDao {
         jdbcTemplate.update(sql, quantity, productId);
     }
 
-    public int addReservation(Integer userID,Integer productID,Integer amount){
-        String text="已预约";
-        String sql="insert into reservations(userId,productId,amount,status) values (?,?,?,?)";
-        return jdbcTemplate.update(sql,userID,productID,amount,text);
+    public int addReservation(Integer userID, Integer productID, Integer amount) {
+        String text = "已预约";
+        String sql = "insert into reservations(userId,productId,amount,status) values (?,?,?,?)";
+        return jdbcTemplate.update(sql, userID, productID, amount, text);
     }
 }

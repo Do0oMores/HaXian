@@ -24,13 +24,13 @@ public class UserInformationDao {
     }
 
 
-    public int saveUser(Integer userID, String name, String phone, Integer isAdmin, LocalDateTime registerDate){
-        String sql="update users set name=?,phone=?,is_admin=?,register_date=? where id=?";
-            return jdbcTemplate.update(sql,name,phone,isAdmin,registerDate,userID);
+    public int saveUser(Integer userID, String name, String phone, Integer isAdmin, LocalDateTime registerDate) {
+        String sql = "update users set name=?,phone=?,is_admin=?,register_date=? where id=?";
+        return jdbcTemplate.update(sql, name, phone, isAdmin, registerDate, userID);
     }
 
-    public List<Map<String,Object>> selectUsers(){
-        String sql="select id,name,phone,is_admin,register_date from users";
+    public List<Map<String, Object>> selectUsers() {
+        String sql = "select id,name,phone,is_admin,register_date from users";
         return jdbcTemplate.queryForList(sql);
     }
 }
